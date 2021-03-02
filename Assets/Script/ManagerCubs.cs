@@ -30,7 +30,6 @@ public class ManagerCubs : MonoBehaviour
     Transform starttransformpospar_3D;
     Quaternion quaternion_origin;
     Quaternion quaternion_X;
-    bool Go;
     void Start()
     {
         arr = new int[Shirina_x, Visota_z];
@@ -39,7 +38,7 @@ public class ManagerCubs : MonoBehaviour
         for (int i = 0; i < Shirina_x * Visota_z * Hlibina_y; i++)
         {
             GameObject CloneCub = Instantiate(Cub);
-            CloneCub.transform.position = new Vector3(87, 87, 87);
+            CloneCub.transform.position = new Vector3(205,205,205);
             PoolPoints.Add(CloneCub);
 
         }
@@ -59,7 +58,6 @@ public class ManagerCubs : MonoBehaviour
         starttransformpospar_2D = Parent_for_Animation_2D.transform;
         starttransformpospar_3D = Parent_for_Animation_3D.transform;
         CubikiProsto();
-        Go = true;
     }
     private void FixedUpdate()
     {
@@ -199,7 +197,7 @@ public class ManagerCubs : MonoBehaviour
     {
         foreach (GameObject cube in PoolPoints)
         {
-            cube.transform.position = new Vector3(87, 87, 87);
+            cube.transform.position = new Vector3(205,205,205);
             cube.transform.rotation = quaternion_origin;
         }
         Parent_for_Animation_2D.transform.position = starttransformpospar_2D.position;
@@ -234,7 +232,7 @@ public class ManagerCubs : MonoBehaviour
     {
         foreach (GameObject cube in PoolPoints)
         {
-            cube.transform.position = new Vector3(87, 87, 87);
+            cube.transform.position = new Vector3(205,205,205);
             cube.transform.rotation = quaternion_origin;
         }
         Parent_for_Animation_2D.transform.position = starttransformpospar_2D.position;
@@ -269,7 +267,7 @@ public class ManagerCubs : MonoBehaviour
     {
         foreach (GameObject cube in PoolPoints)
         {
-            cube.transform.position = new Vector3(87, 87, 87);
+            cube.transform.position = new Vector3(205,205,205);
             cube.transform.rotation = quaternion_origin;
         }
         Parent_for_Animation_3D.transform.position = starttransformpospar_3D.position;
@@ -309,7 +307,7 @@ public class ManagerCubs : MonoBehaviour
     {
         foreach (GameObject cube in PoolPoints)
         {
-            cube.transform.position = new Vector3(87, 87, 87);
+            cube.transform.position = new Vector3(205,205,205);
             cube.transform.rotation = quaternion_origin;
         }
         Parent_for_Animation_3D.transform.position = starttransformpospar_3D.position;
