@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ManagerChess : MonoBehaviour
+public class ManagerCubs : MonoBehaviour
 {
     public List<GameObject> PoolPoints;
     public GameObject Cub;
@@ -24,7 +24,13 @@ public class ManagerChess : MonoBehaviour
     public int Shirina_x;
     public int Visota_z;
     public int Hlibina_y;
-
+    public GameObject Parent_for_Animation_2D;
+    public GameObject Parent_for_Animation_3D;
+    Transform starttransformpospar_2D;
+    Transform starttransformpospar_3D;
+    Quaternion quaternion_origin;
+    Quaternion quaternion_X;
+    bool Go;
     void Start()
     {
         arr = new int[Shirina_x, Visota_z];
@@ -33,7 +39,7 @@ public class ManagerChess : MonoBehaviour
         for (int i = 0; i < Shirina_x * Visota_z * Hlibina_y; i++)
         {
             GameObject CloneCub = Instantiate(Cub);
-            CloneCub.transform.position = new Vector3(-100, -100, -100);
+            CloneCub.transform.position = new Vector3(87, 87, 87);
             PoolPoints.Add(CloneCub);
 
         }
@@ -48,11 +54,21 @@ public class ManagerChess : MonoBehaviour
         step3D_XWhite = Cub.transform.localScale.x;
         step3D_YWhite = Cub.transform.localScale.y;
         step3D_ZWhite = Cub.transform.localScale.z;
+        quaternion_origin = new Quaternion(0, 0, 0, 0);
+        quaternion_X = Quaternion.AngleAxis(1, new Vector3(1, 0, 0));
+        starttransformpospar_2D = Parent_for_Animation_2D.transform;
+        starttransformpospar_3D = Parent_for_Animation_3D.transform;
+        CubikiProsto();
+        Go = true;
     }
-    void Update()
+    private void FixedUpdate()
     {
 
+        Rotation();
     }
+
+
+
     void SetCubes()
     {
         for (int i = 0; i < Shirina_x; i++)
@@ -183,8 +199,12 @@ public class ManagerChess : MonoBehaviour
     {
         foreach (GameObject cube in PoolPoints)
         {
-            cube.transform.position = new Vector3(-100, -100, -100);
+            cube.transform.position = new Vector3(87, 87, 87);
+            cube.transform.rotation = quaternion_origin;
         }
+        Parent_for_Animation_2D.transform.position = starttransformpospar_2D.position;
+        Parent_for_Animation_2D.transform.rotation = quaternion_origin;
+        Parent_for_Animation_2D.transform.DetachChildren();
         int k = 0;
         for (int i = 0; i < Shirina_x; i++)
         {
@@ -195,16 +215,17 @@ public class ManagerChess : MonoBehaviour
                     GameObject Cub = PoolPoints[k];
                     Cub.transform.position = new Vector3(i * step_XBlack + StartCoordinata_X, 0, j * step_ZBlack + StartCoordinata_Z);
                     Cub.GetComponent<MeshRenderer>().material.color = Color.black;
-
-
+                    Cub.transform.SetParent(Parent_for_Animation_2D.transform);
                 }
                 else
                 {
                     GameObject Cub = PoolPoints[k];
                     Cub.transform.position = new Vector3(i * step_XWhite + StartCoordinata_X, 0, j * step_ZWhite + StartCoordinata_Z);
                     Cub.GetComponent<MeshRenderer>().material.color = Color.white;
+                    Cub.transform.SetParent(Parent_for_Animation_2D.transform);
 
                 }
+
                 k++;
             }
         }
@@ -213,8 +234,12 @@ public class ManagerChess : MonoBehaviour
     {
         foreach (GameObject cube in PoolPoints)
         {
-            cube.transform.position = new Vector3(-100, -100, -100);
+            cube.transform.position = new Vector3(87, 87, 87);
+            cube.transform.rotation = quaternion_origin;
         }
+        Parent_for_Animation_2D.transform.position = starttransformpospar_2D.position;
+        Parent_for_Animation_2D.transform.rotation = quaternion_origin;
+        Parent_for_Animation_2D.transform.DetachChildren();
         int k = 0;
         for (int i = 0; i < Shirina_x; i++)
         {
@@ -225,7 +250,7 @@ public class ManagerChess : MonoBehaviour
                     GameObject Cub = PoolPoints[k];
                     Cub.transform.position = new Vector3(i * step_XBlack + StartCoordinata_X, 0, j * step_ZBlack + StartCoordinata_Z);
                     Cub.GetComponent<MeshRenderer>().material.color = Color.black;
-
+                    Cub.transform.SetParent(Parent_for_Animation_2D.transform);
 
                 }
                 if ((arr[i, j] == 0) && (i == 0 || j == 0 || i == Shirina_x - 1 || j == Visota_z - 1))
@@ -233,6 +258,7 @@ public class ManagerChess : MonoBehaviour
                     GameObject Cub = PoolPoints[k];
                     Cub.transform.position = new Vector3(i * step_XWhite + StartCoordinata_X, 0, j * step_ZWhite + StartCoordinata_Z);
                     Cub.GetComponent<MeshRenderer>().material.color = Color.white;
+                    Cub.transform.SetParent(Parent_for_Animation_2D.transform);
 
                 }
                 k++;
@@ -243,8 +269,12 @@ public class ManagerChess : MonoBehaviour
     {
         foreach (GameObject cube in PoolPoints)
         {
-            cube.transform.position = new Vector3(-100, -100, -100);
+            cube.transform.position = new Vector3(87, 87, 87);
+            cube.transform.rotation = quaternion_origin;
         }
+        Parent_for_Animation_3D.transform.position = starttransformpospar_3D.position;
+        Parent_for_Animation_2D.transform.rotation = quaternion_origin;
+        Parent_for_Animation_3D.transform.DetachChildren();
         int k = 0;
         for (int x = 0; x < Shirina_x; x++)
         {
@@ -258,12 +288,16 @@ public class ManagerChess : MonoBehaviour
                         GameObject Cub = PoolPoints[k];
                         Cub.transform.position = new Vector3(x * step3D_XBlack + StartCoordinata_X, y * step3D_YBlack + StartCoordinata_Y, z * step3D_ZBlask + StartCoordinata_Z);
                         Cub.GetComponent<MeshRenderer>().material.color = Color.black;
+                        Cub.transform.SetParent(Parent_for_Animation_3D.transform);
+
                     }
                     else
                     {
                         GameObject Cub = PoolPoints[k];
                         Cub.transform.position = new Vector3(x * step3D_XWhite + StartCoordinata_X, y * step3D_YWhite + StartCoordinata_Y, z * step3D_ZWhite + StartCoordinata_Z);
                         Cub.GetComponent<MeshRenderer>().material.color = Color.white;
+                        Cub.transform.SetParent(Parent_for_Animation_3D.transform);
+
                     }
                     k++;
                 }
@@ -275,8 +309,12 @@ public class ManagerChess : MonoBehaviour
     {
         foreach (GameObject cube in PoolPoints)
         {
-            cube.transform.position = new Vector3(-100, -100, -100);
+            cube.transform.position = new Vector3(87, 87, 87);
+            cube.transform.rotation = quaternion_origin;
         }
+        Parent_for_Animation_3D.transform.position = starttransformpospar_3D.position;
+        Parent_for_Animation_2D.transform.rotation = quaternion_origin;
+        Parent_for_Animation_3D.transform.DetachChildren();
         int k = 0;
         for (int x = 0; x < Shirina_x; x++)
         {
@@ -292,6 +330,7 @@ public class ManagerChess : MonoBehaviour
                         GameObject Cub = PoolPoints[k];
                         Cub.transform.position = new Vector3(x * step3D_XBlack + StartCoordinata_X, y * step3D_YBlack + StartCoordinata_Y, z * step3D_ZBlask + StartCoordinata_Z);
                         Cub.GetComponent<MeshRenderer>().material.color = Color.black;
+                        Cub.transform.SetParent(Parent_for_Animation_3D.transform);
                     }
                     if ((arr3D[x, y, z] == 0) && (z == 0 && x == Shirina_x - 1 || z == 0 && y == Hlibina_y - 1 || z == Visota_z - 1 && x == Shirina_x - 1 || z == Visota_z - 1 && y == Hlibina_y - 1
                         || x == 0 && y == Hlibina_y - 1 || x == 0 && z == Visota_z - 1 || x == Shirina_x - 1 && z == Visota_z - 1 || x == Shirina_x - 1 && y == Hlibina_y - 1
@@ -301,16 +340,14 @@ public class ManagerChess : MonoBehaviour
                         GameObject Cub = PoolPoints[k];
                         Cub.transform.position = new Vector3(x * step3D_XWhite + StartCoordinata_X, y * step3D_YWhite + StartCoordinata_Y, z * step3D_ZWhite + StartCoordinata_Z);
                         Cub.GetComponent<MeshRenderer>().material.color = Color.white;
+                        Cub.transform.SetParent(Parent_for_Animation_3D.transform);
                     }
                     k++;
-
                 }
             }
         }
 
     }
-
-
     public void CubikiProsto()
     {
         SetCubes();
@@ -356,6 +393,15 @@ public class ManagerChess : MonoBehaviour
         SetCubeChessDesk3D();
         PrintCubesCarcas3D();
     }
+    public void Rotation()
+    {
+        Parent_for_Animation_2D.transform.rotation *= quaternion_X;
+        Parent_for_Animation_3D.transform.rotation *= quaternion_X;
+
+
+
+    }
+
 }
 
 
